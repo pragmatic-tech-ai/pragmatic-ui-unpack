@@ -3,8 +3,9 @@
 # the repository, bakes the image per arch, pushes it by digest to ghcr.io/pragmatic-tech-ai/pragmatic-ui-unpack, joins the arches
 # under :<version> and :git-<sha>, and attaches component.json and digest.txt to this tag's GitHub release. A platform
 # release (signed) is assembled elsewhere, from those assets.
-# Trust: the reusable workflow is taken from pragmatic-shared@main, a public repository of this organisation that the
-# same maintainers control; pin a commit sha here instead if that trust ever changes.
+# Only a commit on main is released, after the checks CI runs before its image bake (the reusable workflow's `verify`).
+# Trust: the reusable workflow is taken from pragmatic-shared at the tag of the toolkit version this repository's lock
+# installs (v0.17.7; `v*` tags there are protected by a ruleset); a re-render after a toolkit bump moves it.
 # GHCR_TOKEN (optional, write:packages): needed while the GHCR package was created by another repository and has not
 # granted this one Actions access; without it the run pushes with its own GITHUB_TOKEN.
 name: release
@@ -20,11 +21,14 @@ permissions:
   packages: write
 jobs:
   release:
-    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-release.yml@main
+    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-release.yml@v0.17.7
     with:
       app: pragmatic-ui-unpack
       arm64: false
       version-manifest: package.json
+      ui-dirs: ''
+      node: true
+      closure-check: true
     secrets:
       PACKAGES_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
