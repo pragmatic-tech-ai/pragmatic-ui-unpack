@@ -1,8 +1,25 @@
 import { NodeFsStorage } from '@pragmatic-tech-ai/todl-runtime/node'
 import { FileKeyStore, OciRegistryClient, UiArtifactVerifier } from '@pragmatic-tech-ai/pragmatic-release-toolkit'
-import { UiUnpacker, type UiUnpackInput } from '../ui-unpacker.js'
+import { UiUnpackError, UiUnpacker, type UiUnpackInput } from '../ui-unpacker.js'
 
-/** Init-container entry: reads its inputs from the environment, reconciles, and exits non-zero on any failure. */
+/** A required environment variable is missing or empty: a configuration refusal, naming the variable (never a value). */
+export class UiUnpackConfigError extends Error
+{
+    private static readonly ErrorName = 'UiUnpackConfigError'
+    private static readonly RequiredSuffix = ' is required'
+
+    public constructor(public readonly Variable: string)
+    {
+        super(Variable + UiUnpackConfigError.RequiredSuffix)
+        this.name = UiUnpackConfigError.ErrorName
+    }
+}
+
+/**
+ * Init-container entry: reads its inputs from the environment, reconciles, and exits non-zero on any failure. Each
+ * failure kind prints its own fixed line, so a configuration refusal (`<variable> is required`) is told apart from an
+ * unpack failure and from an unexpected error.
+ */
 export class UiUnpackBin
 {
     public static readonly RegistryPullBaseEnv = 'PRAGMATIC_UI_REGISTRY_BASE'
@@ -15,8 +32,8 @@ export class UiUnpackBin
     public static readonly TrustRootRefEnv = 'PRAGMATIC_UI_TRUST_ROOT_REF'
     public static readonly DataDirEnv = 'PRAGMATIC_UI_DATA_DIR'
     public static readonly TrustDirEnv = 'PRAGMATIC_UI_TRUST_DIR'
-    private static readonly FailureMessage = 'pragmatic-ui-unpack: failed'
-    private static readonly MissingMessage = 'pragmatic-ui-unpack: missing required environment'
+    private static readonly Prefix = 'pragmatic-ui-unpack: '
+    private static readonly UnexpectedMessage = 'failed (unexpected error)'
 
     public static async Main(env: NodeJS.ProcessEnv = process.env): Promise<void>
     {
@@ -39,11 +56,21 @@ export class UiUnpackBin
             const unpacker = new UiUnpacker(new OciRegistryClient(base), new UiArtifactVerifier(new FileKeyStore(trustDir)), new NodeFsStorage(dataDir))
             await unpacker.Reconcile(input)
         }
-        catch
+        catch (error)
         {
-            console.error(S.FailureMessage)
+            console.error(S.Prefix + S.Describe(error))
             process.exitCode = 1
         }
+    }
+
+    /** The failure's fixed, material-free line: the missing variable's name, the unpacker's safe message, or neither. */
+    private static Describe(error: unknown): string
+    {
+        if (error instanceof UiUnpackConfigError || error instanceof UiUnpackError)
+        {
+            return error.message
+        }
+        return UiUnpackBin.UnexpectedMessage
     }
 
     private static Required(env: NodeJS.ProcessEnv, name: string): string
@@ -51,7 +78,7 @@ export class UiUnpackBin
         const value = env[name]
         if (value === undefined || value.length === 0)
         {
-            throw new Error(UiUnpackBin.MissingMessage)
+            throw new UiUnpackConfigError(name)
         }
         return value
     }
