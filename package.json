@@ -13,8 +13,8 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tests/tsconfig.json"
   },
   "dependencies": {
-    "@pragmatic-tech-ai/pragmatic-component": "^0.17.5",
-    "@pragmatic-tech-ai/pragmatic-release-toolkit": "^0.17.5",
+    "@pragmatic-tech-ai/pragmatic-component": "^0.17.6",
+    "@pragmatic-tech-ai/pragmatic-release-toolkit": "^0.17.6",
     "@pragmatic-tech-ai/todl-runtime": "^0.7.0"
   },
   "devDependencies": {
@@ -28,5 +28,9 @@
     "Apps": [
       "pragmatic-ui-unpack"
     ]
+  },
+  "pragmaticContainerTemplate": {
+    "App": "pragmatic-ui-unpack",
+    "Entry": "src/bin/pragmatic-ui-unpack.ts"
   }
 }
