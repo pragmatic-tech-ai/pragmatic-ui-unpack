@@ -20,6 +20,7 @@ jobs:
       closure-check: true
       image-test: false
       start-smoke: true
+      start-smoke-refusal: 'pragmatic-ui-unpack: failed'
       arm64: false
       helm-chart: ''
     secrets:
