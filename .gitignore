@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.tsbuildinfo
+# The component descriptor, its digest and the bake override, exported by the first bake step (docker-bake.hcl).
+.components/
+test-results/

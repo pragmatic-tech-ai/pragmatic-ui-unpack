@@ -1,0 +1,2 @@
+# LF everywhere: shell scripts and Dockerfiles run on Linux, descriptors are compared byte for byte.
+* text=auto eol=lf

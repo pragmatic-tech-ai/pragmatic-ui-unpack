@@ -1,0 +1,32 @@
+{
+  "name": "@pragmatic-tech-ai/pragmatic-ui-unpack",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The UI-unpack init container: pulls, verifies and unpacks one signed UI artifact, then exits.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "tsx --test \"src/**/*.test.ts\" \"tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/tsconfig.json"
+  },
+  "dependencies": {
+    "@pragmatic-tech-ai/pragmatic-component": "^0.17.2",
+    "@pragmatic-tech-ai/pragmatic-release-toolkit": "^0.17.2",
+    "@pragmatic-tech-ai/todl-runtime": "^0.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.0"
+  },
+  "pragmaticClosureCheck": {
+    "Manifest": "closure.json",
+    "Dockerfile": "Dockerfile",
+    "Apps": [
+      "pragmatic-ui-unpack"
+    ]
+  }
+}

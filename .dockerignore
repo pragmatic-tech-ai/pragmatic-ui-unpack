@@ -1,0 +1,9 @@
+# The build installs from the lock and compiles inside the image; the npm credentials arrive only as a build secret.
+.git
+.github
+.components
+**/.npmrc
+**/node_modules
+**/dist
+**/*.tsbuildinfo
+test-results

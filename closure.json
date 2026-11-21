@@ -1,0 +1,7 @@
+{
+  "pragmatic-ui-unpack": {
+    "entrypoint": ["node", "dist/bin/pragmatic-ui-unpack.js"],
+    "packages": [],
+    "files": ["pragmatic-ui-unpack/package.json", "pragmatic-ui-unpack/node_modules", "pragmatic-ui-unpack/dist"]
+  }
+}
