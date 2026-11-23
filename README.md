@@ -10,10 +10,15 @@ variables and component descriptor are unchanged.
 
 ## Configuration
 
-Every variable is required (the component descriptor, `src/ui-unpack-component.ts`, declares them):
+Every variable is required (the component descriptor, `src/ui-unpack-component.ts`, declares all but the root of trust):
 `PRAGMATIC_UI_REGISTRY_BASE`, `PRAGMATIC_UI_REPO`, `PRAGMATIC_UI_ARTIFACT_TAG`, `PRAGMATIC_UI_SIG_TAG`,
 `PRAGMATIC_UI_MANIFEST_DIGEST`, `PRAGMATIC_UI_APP_NAME`, `PRAGMATIC_UI_APP_VERSION`, `PRAGMATIC_UI_TRUST_ROOT_REF`,
 `PRAGMATIC_UI_DATA_DIR`, `PRAGMATIC_UI_TRUST_DIR`.
+
+At start the mounted `pragmatic-config-pragmatic-ui-unpack` (the tenant admin console's applied configuration) is laid
+over these variables; one the unpacker cannot start with exits 78 with the reason. The root of trust
+(`PRAGMATIC_UI_TRUST_ROOT_REF`, `PRAGMATIC_UI_TRUST_DIR`) is the platform's: it is left out of the descriptor, so no
+tenant configuration can set it.
 
 ## Development
 

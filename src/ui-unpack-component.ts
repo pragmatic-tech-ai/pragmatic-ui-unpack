@@ -8,9 +8,10 @@ export class UiUnpackComponent
 {
     public static readonly Name = 'pragmatic-ui-unpack'
     /** The descriptor version: this application's package version (the release test pins it to package.json). */
-    public static readonly Version = '0.1.0'
+    public static readonly Version = '0.1.1'
 
-    private static readonly Declaration: ComponentDeclaration = {
+    /** The declaration: the descriptor, and the variable the start step overlays each configured setting onto. */
+    public static readonly Declaration: ComponentDeclaration = {
         name: UiUnpackComponent.Name,
         version: UiUnpackComponent.Version,
         options: [
@@ -25,9 +26,7 @@ export class UiUnpackComponent
                     { name: 'manifestDigest', type: SettingType.String, source: 'PRAGMATIC_UI_MANIFEST_DIGEST', required: true, description: 'The manifest digest the artifact must have.' },
                     { name: 'appName', type: SettingType.String, source: 'PRAGMATIC_UI_APP_NAME', required: true, description: 'The application the UI belongs to.' },
                     { name: 'appVersion', type: SettingType.String, source: 'PRAGMATIC_UI_APP_VERSION', required: true, description: 'The application version.' },
-                    { name: 'trustRootRef', type: SettingType.String, source: 'PRAGMATIC_UI_TRUST_ROOT_REF', required: true, description: 'The trust root the signature must chain to.' },
                     { name: 'dataDir', type: SettingType.String, source: 'PRAGMATIC_UI_DATA_DIR', required: true, description: 'Folder the UI is unpacked into.' },
-                    { name: 'trustDir', type: SettingType.String, source: 'PRAGMATIC_UI_TRUST_DIR', required: true, description: 'Folder of the trusted public keys.' },
                 ],
             },
         ],

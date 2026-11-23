@@ -1,5 +1,7 @@
 import { NodeFsStorage } from '@pragmatic-tech-ai/todl-runtime/node'
 import { FileKeyStore, OciRegistryClient, UiArtifactVerifier } from '@pragmatic-tech-ai/pragmatic-release-toolkit'
+import { ComponentStartConfiguration } from '@pragmatic-tech-ai/pragmatic-configuration-runtime'
+import { UiUnpackComponent } from '../ui-unpack-component.js'
 import { UiUnpackError, UiUnpacker, type UiUnpackInput } from '../ui-unpacker.js'
 
 /** A required environment variable is missing or empty: a configuration refusal, naming the variable (never a value). */
@@ -16,7 +18,8 @@ export class UiUnpackConfigError extends Error
 }
 
 /**
- * Init-container entry: reads its inputs from the environment, reconciles, and exits non-zero on any failure. Each
+ * Init-container entry: lays its applied configuration over the environment (a refused one exits 78), reads its inputs
+ * from the environment, reconciles, and exits non-zero on any failure. Each
  * failure kind prints its own fixed line, so a configuration refusal (`<variable> is required`) is told apart from an
  * unpack failure and from an unexpected error.
  */
@@ -38,6 +41,8 @@ export class UiUnpackBin
     public static async Main(env: NodeJS.ProcessEnv = process.env): Promise<void>
     {
         const S = UiUnpackBin
+        // First of all: the applied configuration (the mounted pragmatic-config-pragmatic-ui-unpack) over the environment.
+        await ComponentStartConfiguration.ApplyOrExit({ Declaration: UiUnpackComponent.Declaration, Env: env })
         try
         {
             const base = S.Required(env, S.RegistryPullBaseEnv)

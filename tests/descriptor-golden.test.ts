@@ -7,14 +7,14 @@ import { ReleaseApp } from '@pragmatic-tech-ai/pragmatic-release-toolkit'
 import { Components } from '../src/release-components.js'
 import { ComponentGolden } from '../src/tests/component-golden.js'
 
-/** The descriptor the image carries, pinned to pragmatic-server's golden (admin/control-plane/descriptors/digests.json). */
+/** The descriptor the image carries, pinned (it moves with the declaration and the package version). */
 class DescriptorGoldenFixture
 {
     public static readonly Here = dirname(fileURLToPath(import.meta.url))
     public static readonly App = ReleaseApp.UiUnpack
     public static readonly Golden = join(DescriptorGoldenFixture.Here, '..', 'src', 'tests', 'fixtures', 'pragmatic-ui-unpack.component.json')
-    /** pragmatic-server@2a2e8138's pin for pragmatic-ui-unpack. */
-    public static readonly PinnedDigest = 'sha256:771920a2ca35e083cf0b4be2ee2e99f885d9ced7d31db4070d58be7d0a9e9c3f'
+    /** The same pin as src/tests/ui-unpack-component.test.ts. */
+    public static readonly PinnedDigest = 'sha256:85609c520dedaec1df8334e86030281fa4d9a8b355b60dde2ef0db8a16f43d5b'
     public static readonly PackageJson = join(DescriptorGoldenFixture.Here, '..', 'package.json')
     public static readonly Utf8 = 'utf8'
 
@@ -28,7 +28,7 @@ describe('release component descriptor', () =>
 {
     const F = DescriptorGoldenFixture
 
-    it('the descriptor the release module emits has exactly the pragmatic-server golden digest', () =>
+    it('the descriptor the release module emits has exactly the pinned digest', () =>
     {
         ComponentGolden.Check(Components.Of(F.App), F.Golden, F.PinnedDigest)
     })

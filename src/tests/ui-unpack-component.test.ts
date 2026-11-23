@@ -10,9 +10,10 @@ class UiUnpackComponentFixture
 {
     public static readonly Here = dirname(fileURLToPath(import.meta.url))
     public static readonly Golden = join(UiUnpackComponentFixture.Here, 'fixtures', 'pragmatic-ui-unpack.component.json')
-    public static readonly Digest = 'sha256:771920a2ca35e083cf0b4be2ee2e99f885d9ced7d31db4070d58be7d0a9e9c3f'
+    public static readonly Digest = 'sha256:85609c520dedaec1df8334e86030281fa4d9a8b355b60dde2ef0db8a16f43d5b'
     public static readonly Readers = [['..', 'bin', 'pragmatic-ui-unpack.ts']].map(path => join(UiUnpackComponentFixture.Here, ...path))
-    public static readonly Undeclared: readonly string[] = []
+    /** Platform-owned: the hive's root of trust the artifact signature must chain to, never tenant-configurable. */
+    public static readonly Undeclared: readonly string[] = ['PRAGMATIC_UI_TRUST_ROOT_REF', 'PRAGMATIC_UI_TRUST_DIR']
 }
 
 describe('UiUnpackComponent', () =>

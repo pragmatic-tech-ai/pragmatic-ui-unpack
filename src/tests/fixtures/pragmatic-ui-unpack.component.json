@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "component": "pragmatic-ui-unpack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "options": [
     {
       "name": "core",
@@ -57,25 +57,11 @@
           "description": "PRAGMATIC_UI_APP_VERSION: The application version."
         },
         {
-          "name": "trustRootRef",
-          "type": "string",
-          "required": true,
-          "secret": false,
-          "description": "PRAGMATIC_UI_TRUST_ROOT_REF: The trust root the signature must chain to."
-        },
-        {
           "name": "dataDir",
           "type": "string",
           "required": true,
           "secret": false,
           "description": "PRAGMATIC_UI_DATA_DIR: Folder the UI is unpacked into."
-        },
-        {
-          "name": "trustDir",
-          "type": "string",
-          "required": true,
-          "secret": false,
-          "description": "PRAGMATIC_UI_TRUST_DIR: Folder of the trusted public keys."
         }
       ]
     }
