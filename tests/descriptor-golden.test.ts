@@ -14,7 +14,7 @@ class DescriptorGoldenFixture
     public static readonly App = ReleaseApp.UiUnpack
     public static readonly Golden = join(DescriptorGoldenFixture.Here, '..', 'src', 'tests', 'fixtures', 'pragmatic-ui-unpack.component.json')
     /** The same pin as src/tests/ui-unpack-component.test.ts. */
-    public static readonly PinnedDigest = 'sha256:85609c520dedaec1df8334e86030281fa4d9a8b355b60dde2ef0db8a16f43d5b'
+    public static readonly PinnedDigest = 'sha256:982457c4971f66c29ef05ee11a7872d7945d18832aa5fabb91d64a11fc93ae05'
     public static readonly PackageJson = join(DescriptorGoldenFixture.Here, '..', 'package.json')
     public static readonly Utf8 = 'utf8'
 

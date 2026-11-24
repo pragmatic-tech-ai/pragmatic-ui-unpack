@@ -5,7 +5,7 @@
 # release (signed) is assembled elsewhere, from those assets.
 # Only a commit on main is released, after the checks CI runs before its image bake (the reusable workflow's `verify`).
 # Trust: the reusable workflow is taken from pragmatic-shared at the tag of the toolkit version this repository's lock
-# installs (v0.18.0; `v*` tags there are protected by a ruleset); a re-render after a toolkit bump moves it.
+# installs (v0.18.8; `v*` tags there are protected by a ruleset); a re-render after a toolkit bump moves it.
 # GHCR_TOKEN (optional, write:packages): needed while the GHCR package was created by another repository and has not
 # granted this one Actions access; without it the run pushes with its own GITHUB_TOKEN.
 name: release
@@ -21,7 +21,7 @@ permissions:
   packages: write
 jobs:
   release:
-    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-release.yml@v0.18.0
+    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-release.yml@v0.18.8
     with:
       app: pragmatic-ui-unpack
       arm64: false

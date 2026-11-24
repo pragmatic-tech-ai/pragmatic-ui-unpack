@@ -77,23 +77,13 @@ describe('pragmatic-ui-unpack entry', () =>
         assert.ok(!result.Stderr.includes(UiUnpackBinFixture.OldGenericLine), result.Stderr)
     })
 
-    it('a mounted configuration overrides the declared variables before the settings are read', () =>
+    it('a configuration that names its per-environment wiring is refused (78), never overlaid onto the deployment', () =>
     {
         UiUnpackBinFixture.WithConfiguration(UiUnpackBinFixture.Core, path =>
         {
-            const result = UiUnpackBinFixture.Run({ PRAGMATIC_CONFIGURATION_FILE: path, PRAGMATIC_UI_TRUST_ROOT_REF: 'root', PRAGMATIC_UI_TRUST_DIR: 'unused-trust' })
-            assert.equal(result.Code, 1, 'the configured registry is unreachable, so the unpack itself fails')
-            assert.ok(!result.Stderr.includes('is required'), result.Stderr)
-        })
-    })
-
-    it('an invalid configuration exits with the start error code 78 and the reason', () =>
-    {
-        UiUnpackBinFixture.WithConfiguration({ ...UiUnpackBinFixture.Core, registryBase: 'not a url' }, path =>
-        {
-            const result = UiUnpackBinFixture.Run({ PRAGMATIC_CONFIGURATION_FILE: path })
+            const result = UiUnpackBinFixture.Run({ PRAGMATIC_CONFIGURATION_FILE: path, ...UiUnpackBinFixture.FirstThree })
             assert.equal(result.Code, 78)
-            assert.match(result.Stderr, /pragmatic-ui-unpack: cannot start on the applied configuration: .*\(invalid\)/)
+            assert.match(result.Stderr, /pragmatic-ui-unpack: cannot start on the applied configuration: /)
         })
     })
 

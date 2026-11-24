@@ -1,7 +1,7 @@
 # pragmatic-ui-unpack CI (rendered by pragmatic-container-template): build, tests, the image closure check, the two-step image bake
 # and its component label check, run by pragmatic-shared's reusable container workflow.
 # Trust: the reusable workflow is taken from pragmatic-shared at the tag of the toolkit version this repository's lock
-# installs (v0.18.0; `v*` tags there are protected by a ruleset), so CI runs the checks of the toolkit it
+# installs (v0.18.8; `v*` tags there are protected by a ruleset), so CI runs the checks of the toolkit it
 # builds with and a re-render after a toolkit bump moves it (the render-drift check holds it). A pull request from a
 # fork gets no PACKAGES_TOKEN: the run then says so and skips the build.
 name: ci
@@ -13,7 +13,7 @@ permissions:
   contents: read
 jobs:
   ci:
-    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-ci.yml@v0.18.0
+    uses: pragmatic-tech-ai/pragmatic-shared/.github/workflows/container-ci.yml@v0.18.8
     with:
       app: pragmatic-ui-unpack
       ui-dirs: ''

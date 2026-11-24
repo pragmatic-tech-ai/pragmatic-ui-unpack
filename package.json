@@ -1,6 +1,6 @@
 {
   "name": "@pragmatic-tech-ai/pragmatic-ui-unpack",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "The UI-unpack init container: pulls, verifies and unpacks one signed UI artifact, then exits.",
   "license": "Apache-2.0",
@@ -18,9 +18,9 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tests/tsconfig.json"
   },
   "dependencies": {
-    "@pragmatic-tech-ai/pragmatic-component": "^0.18.0",
-    "@pragmatic-tech-ai/pragmatic-configuration-runtime": "^0.18.0",
-    "@pragmatic-tech-ai/pragmatic-release-toolkit": "^0.18.0",
+    "@pragmatic-tech-ai/pragmatic-component": "^0.18.8",
+    "@pragmatic-tech-ai/pragmatic-configuration-runtime": "^0.18.8",
+    "@pragmatic-tech-ai/pragmatic-release-toolkit": "^0.18.8",
     "@pragmatic-tech-ai/todl-runtime": "^0.7.1"
   },
   "devDependencies": {
